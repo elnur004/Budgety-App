@@ -19,7 +19,7 @@ var budgetController = (function() {
             sum += cur.value;
         })
         data.totals[type] = sum;
-    }
+    };
 
     var data = {
         allItems: {
@@ -156,6 +156,12 @@ var UIController = (function() {
             document.querySelector(element).insertAdjacentHTML('beforeend', newHTML);
         },
 
+        deleteListItem: function(selectId) {
+            var el = document.getElementById(selectId);
+            el.parentNode.removeChild(el);
+        },
+
+
         clearFields: function() {
             var fields, fieldsArr;
             // Select the fields
@@ -217,7 +223,7 @@ var controller = (function(budgetCtrl, UICtrl) {
 
         // 3. Display the budget on the UI
         UICtrl.displayBudget(budget);
-    }
+    };
 
 
     var ctrlAddItem = function() {
@@ -253,9 +259,12 @@ var controller = (function(budgetCtrl, UICtrl) {
 
             // 1. Delete item from data structure
             budgetCtrl.deleteItem(type, ID);
+
             // 2. Delete item from UI
+            UICtrl.deleteListItem(itemID);
 
             // 3. Update and show the new budget
+            updateBudget();
         }
     };
 
